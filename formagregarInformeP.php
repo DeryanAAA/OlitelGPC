@@ -225,7 +225,7 @@ exit;
 
 
 					<!-- FORMULARIO -->
-					<form class="form-sample" method="post" action="controladoringresarproyectocob.php">
+					<form class="form-sample" method="post" action="controladoringresarinformeP.php">
 						 <div class="row">
 						<input name="creadopor" type="hidden" id="creadopor" value="<?php echo $_SESSION['username']; ?>" >		
 						<!------------------------------------------------------------------------------->
@@ -235,39 +235,65 @@ exit;
 						  <div class="form-group row">
 							<label class="col-sm-4 col-form-label">Concepto:</label>
 							<div class="col-sm-9">
-							  <input type="text" class="form-control" name="nom_pro" id="nom_pro" autofocus="autofocus" required /> </div>
+							  <input type="text" class="form-control" name="concepto" id="concepto" autofocus="autofocus" required /> </div>
 						  </div>
 						</div>
                         <!------------------------------------------------------------------------------->
                         <!---------------------------------NOMBRE CC------------------------------------->
                         <!------------------------------------------------------------------------------->
 						<div class="col-md-6">
-						  <div class="form-group row">
+						<div class="form-group row">
 							<label class="col-sm-4 col-form-label">Nombre CC:</label>
-							<div class="col-sm-9">
-							  <input type="text" class="form-control" name="desc_pro"  id="desc_pro" /> </div>
+							<?php 
+								$query = "SELECT * FROM CENTRO_DE_COSTO";
+								$result = $conexion->query($query);
+								?>	
+								<div class="col-sm-9">
+									<select	 class="form-control" name="nombrecc" id="nombrecc" required>
+									<option value="" >Seleccione</option>
+									<?php 
+										while ( $row = $result->fetch_array() ) {?>
+										<option value=" <?php echo $row['ID_CC'] ?> " ><?php echo $row['NOM_CC']; ?></option>
+										<?php
+										}?>
+									</select>
+								</div>
 						  </div>
+						  
 						</div>
-					</div>
                      	<!------------------------------------------------------------------------------->
                         <!---------------------------------OTT/OPR--------------------------------------->
                         <!------------------------------------------------------------------------------->
-					   <div class="row">
+					    
 						<div class="col-md-6">
-						  <div class="form-group row">
-							<label class="col-sm-4 col-form-label">OTT/OPR:</label>
-							<div class="col-sm-9">
-							  <input type="text" class="form-control" name="ott" id="ott" /> </div>
+						<div class="form-group row">
+							<label class="col-sm-4 col-form-label">OTT/OPR</label>
+							<?php 
+								$query = "SELECT * FROM CONCEPTO";
+								$result = $conexion->query($query);
+								?>	
+								<div class="col-sm-9">
+									<select	 class="form-control" name="ott" id="ott" required>
+									<option value="" >Seleccione</option>
+									<?php 
+										while ( $row = $result->fetch_array() ) {?>
+										<option value=" <?php echo $row['CP'] ?> " ><?php echo $row['OTT']; ?></option>
+										<?php
+										}?>
+									</select>
+								</div>
 						  </div>
+						  
 						</div>
                         <!------------------------------------------------------------------------------->
                         <!---------------------------------TIPO DE SERVICIO------------------------------>
                         <!------------------------------------------------------------------------------->
+					
 							 <div class="col-md-6">
 						  <div class="form-group row">
 							<label class="col-sm-4 col-form-label">Tipo de Servicio:</label>
 							<div class="col-sm-9">
-							  <input type="text" class="form-control" name="ott" id="ott" /> </div>
+							  <input type="text" class="form-control" name="tiposervicio" id="tiposervicio" /> </div>
 						  </div>
 						</div>
                         </div>
@@ -283,7 +309,7 @@ exit;
 								$result = $conexion->query($query);
 								?>	
 								<div class="col-sm-9">
-									<select	 class="form-control" name="SADAS" id="ASDASD" required>
+									<select	 class="form-control" name="nfactura" id="nfactura" required>
 									<option value="" >Seleccione</option>
 									<?php 
 										while ( $row = $result->fetch_array() ) {?>
@@ -299,22 +325,34 @@ exit;
                         <!---------------------------------RESPONSABLE P--------------------------------->
                         <!------------------------------------------------------------------------------->
 						<div class="col-md-6">
-						  <div class="form-group row">
+						<div class="form-group row">
 							<label class="col-sm-4 col-form-label">Responsable P:</label>
-							<div class="col-sm-9">
-							  <input type="text" class="form-control" name="sitio"	id="sitio" /> </div>
+							<?php 
+								$query = "SELECT * FROM JEFE_ENTEL";
+								$result = $conexion->query($query);
+								?>	
+								<div class="col-sm-9">
+									<select	 class="form-control" name="responsablep" id="responsablep" required>
+									<option value="" >Seleccione</option>
+									<?php 
+										while ( $row = $result->fetch_array() ) {?>
+										<option value=" <?php echo $row['ID_JDE'] ?> " ><?php echo $row['NOM_JDE']; ?></option>
+										<?php
+										}?>
+									</select>
+								</div>
 						  </div>
+						  
 						</div>
-					  </div>
                       	<!------------------------------------------------------------------------------->
                         <!---------------------------------N° COTIZACION--------------------------------->
                         <!------------------------------------------------------------------------------->
-					  <div class="row">
+					 
 						<div class="col-md-6">
 						  <div class="form-group row">
 							<label class="col-sm-4 col-form-label">N° Cotizacion:</label>
 							<div class="col-sm-9">
-							  <input type="text" class="form-control" name="ott" id="ott" /> </div>
+							  <input type="text" class="form-control" name="ncoti" id="ncoti" /> </div>
 						  </div>
 						</div>
                         <!------------------------------------------------------------------------------->
@@ -324,7 +362,7 @@ exit;
 						  <div class="form-group row">
 							<label class="col-sm-4 col-form-label">Estado:</label>
 							<div class="col-sm-9">
-							  <input type="text" class="form-control" name="desc_pro"  id="desc_pro" /> </div>
+							  <input type="text" class="form-control" name="estado"  id="estado" /> </div>
 						  </div>
 						</div>
 					</div>
@@ -336,7 +374,7 @@ exit;
 						  <div class="form-group row">
 							<label class="col-sm-4 col-form-label">Fecha Envio :</label>
 							<div class="col-sm-9">
-							  <input type="date" class="form-control" name="fda"  id="fda" placeholder="dd/mm/yyyy"  required/> </div>
+							  <input type="date" class="form-control" name="fechaenvio"  id="fechaenvio" placeholder="dd/mm/yyyy"  required/> </div>
 						  </div>
 						</div>
                         	<!--------------------------------------------------------------------------->
@@ -346,7 +384,7 @@ exit;
 						  <div class="form-group row">
 							<label class="col-sm-4 col-form-label">NIP:</label>
 							<div class="col-sm-9">
-							  <input type="text" class="form-control" name="desc_pro"  id="desc_pro" /> </div>
+							  <input type="text" class="form-control" name="nip"  id="nip" /> </div>
 						  </div>
 						</div>
 					  </div>
@@ -358,7 +396,7 @@ exit;
 						  <div class="form-group row">
 							<label class="col-sm-4 col-form-label">Valor IP:</label>
 							<div class="col-sm-9">
-							  <input type="text" class="form-control" name="ott" id="ott" /> </div>
+							  <input type="text" class="form-control" name="valorip" id="valorip" /> </div>
 						  </div>
 						</div>
                         <!------------------------------------------------------------------------------->
@@ -368,7 +406,7 @@ exit;
 						  <div class="form-group row">
 							<label class="col-sm-4 col-form-label">Valor Facturado:</label>
 							<div class="col-sm-9">
-							  <input type="text" class="form-control" name="desc_pro"  id="desc_pro" /> </div>
+							  <input type="text" class="form-control" name="valorfac"  id="valorfac" /> </div>
 						  </div>
 						</div>
 					 </div>
@@ -380,7 +418,7 @@ exit;
 						  <div class="form-group row">
 							<label class="col-sm-4 col-form-label">Observaciones:</label>
 							<div class="col-sm-9">
-							  <input type="text" class="form-control" name="ott" id="ott" /> </div>
+							  <input type="text" class="form-control" name="observaciones" id="observaciones" /> </div>
 						  </div>
 						</div>
                         </div>

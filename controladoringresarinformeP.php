@@ -1,10 +1,6 @@
 <?php
 // $concepto = $_POST['concepto'];
-// $nombrecc = $_POST['nombrecc'];
-// $ott = $_POST['ott'];
 // $tiposervicio =$_POST['tiposervicio'];
-// $nfactura =$_POST['nfactura'];
-// $responsablep =$_POST['responsablep'];
 // $ncoti =$_POST['ncoti'];
 // $estado =$_POST['estado'];
 // $fechaenvio = $_POST['fechaenvio'];
@@ -16,16 +12,8 @@
 
 (isset($_POST['concepto'])) ? $concepto=$_POST['concepto'] : $concepto='';
 $concepto = utf8_decode($concepto);
-(isset($_POST['nombrecc'])) ? $nombrecc=$_POST['nombrecc'] : $nombrecc='';
-$nombrecc = utf8_decode($nombrecc);
-(isset($_POST['ott'])) ? $ott=$_POST['ott'] : $ott='';
-$ott = utf8_decode($ott);
 (isset($_POST['tiposervicio'])) ? $tiposervicio=$_POST['tiposervicio'] : $tiposervicio='';
 $tiposervicio = utf8_decode($tiposervicio);
-(isset($_POST['nfactura'])) ? $nfactura=$_POST['nfactura'] : $nfactura='';
-$nfactura = utf8_decode($nfactura);
-(isset($_POST['responsablep'])) ? $responsablep=$_POST['responsablep'] : $responsablep='';
-$responsablep = utf8_decode($responsablep);
 (isset($_POST['ncoti'])) ? $ncoti=$_POST['ncoti'] : $ncoti='';
 $ncoti = utf8_decode($ncoti);
 (isset($_POST['estado'])) ? $estado=$_POST['estado'] : $estado='';
@@ -38,8 +26,8 @@ $nip = utf8_decode($nip);
 $valorip = utf8_decode($valorip);
 (isset($_POST['valorfac'])) ? $valorfac=$_POST['valorfac'] : $valorfac='';
 $valorfac = utf8_decode($valorfac);
-(isset($_POST['obvervaciones'])) ? $obervaciones=$_POST['obervaciones'] : $obervaciones='';
-$obervaciones = utf8_decode($obervaciones);
+(isset($_POST['observaciones'])) ? $observaciones=$_POST['observaciones'] : $observaciones='';
+$observaciones = utf8_decode($observaciones);
 
 
 
@@ -55,7 +43,7 @@ mysqli_select_db($conexion, $base_datos) or die("No se encuentra la BD");
 mysqli_set_charset($conexion, "utf8");
 
 
-$consulta = "INSERT INTO CONCEPTO (ID_CC, ID_TIPO, ID_SUPENTEL, ID_JDE, ID_CIUDAD, NOMBRE, FECHA_CREACION, SITIO, ESTADO, AVANCE, DESCRIPCION, OTT, INI_ASIG, INI_REAL, TER_ASIG, TER_REAL, FEC_INF, FECHADEASIGNACION, creadopor, ID_REGION,ID_PERSONAS) VALUES (".$cc.",".$tipo.",".$supentel.",".$jde.",".$ciud.",'".$nompro."','".$fechacreac."','".$sitio."','".$estado."',".$avance.",'".$desc."','".$ott."','".$fei."','".$fri."','".$fet."','".$frt."','".$fdinf."','".$fda."','".$creadopor."',".$region.",".$ID_PERSONAS.")";
+$consulta = "INSERT INTO INFORME_DE_PAGO (CP, ID_TIPO, NRO_COTI, ESTADO, FECHAENVIOIP, NIP, VALOR_IP, VALOR_FACTURADO, OBSERVACIONES) VALUES (".$concepto.",'".$tiposervicio."','".$ncoti."','".$estado."','".$fechaenvio."','".$nip."',".$valorip.",".$valorfac.",'".$observaciones."')";
 /*
 $resultado = mysqli_prepare($conexion, $consulta);
 
@@ -93,9 +81,9 @@ if($ok == false){
 */
 if (mysqli_multi_query($conexion, $consulta)) {
 	if ($tipo==1){
-        header('Location: listadoproyectoscobranza.php');
+        header('Location: listadoip.php');
 	}else{
-		header('Location: listadoservicios.php');
+		header('Location: listadoip.php');
 	}
 
 }

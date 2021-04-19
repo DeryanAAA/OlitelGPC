@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] ){
 } 
@@ -211,7 +211,7 @@ exit;
 			<div class="">
 			  <div class="card-body">
 				<div class="d-flex justify-content-between border-bottom">
-				  <h2 class="text-primary">Agregar Proyecto</h2>
+				  <h2 class="text-primary">Agregar Informe de Pago</h2>
 				</div>
 			  </div>
 			</div>
@@ -228,280 +228,163 @@ exit;
 					<form class="form-sample" method="post" action="controladoringresarproyectocob.php">
 						 <div class="row">
 						<input name="creadopor" type="hidden" id="creadopor" value="<?php echo $_SESSION['username']; ?>" >		
-						<div class="col-md-6">
+						<!------------------------------------------------------------------------------->
+                        <!---------------------------------CONCEPTO-------------------------------------->
+                        <!------------------------------------------------------------------------------->
+                        <div class="col-md-6">
 						  <div class="form-group row">
-							<label class="col-sm-3 col-form-label">Nombre Proyecto:</label>
+							<label class="col-sm-4 col-form-label">Concepto:</label>
 							<div class="col-sm-9">
 							  <input type="text" class="form-control" name="nom_pro" id="nom_pro" autofocus="autofocus" required /> </div>
 						  </div>
 						</div>
+                        <!------------------------------------------------------------------------------->
+                        <!---------------------------------NOMBRE CC------------------------------------->
+                        <!------------------------------------------------------------------------------->
 						<div class="col-md-6">
 						  <div class="form-group row">
-							<label class="col-sm-3 col-form-label">Descripción:</label>
+							<label class="col-sm-4 col-form-label">Nombre CC:</label>
 							<div class="col-sm-9">
 							  <input type="text" class="form-control" name="desc_pro"  id="desc_pro" /> </div>
 						  </div>
 						</div>
-							 <input name="fdc" type="hidden" id="fdc" value="<?php echo $hoy ?>" >
-					  </div>
+					</div>
+                     	<!------------------------------------------------------------------------------->
+                        <!---------------------------------OTT/OPR--------------------------------------->
+                        <!------------------------------------------------------------------------------->
 					   <div class="row">
 						<div class="col-md-6">
 						  <div class="form-group row">
-							<label class="col-sm-3 col-form-label">OTT/OPR:</label>
+							<label class="col-sm-4 col-form-label">OTT/OPR:</label>
 							<div class="col-sm-9">
 							  <input type="text" class="form-control" name="ott" id="ott" /> </div>
 						  </div>
 						</div>
+                        <!------------------------------------------------------------------------------->
+                        <!---------------------------------TIPO DE SERVICIO------------------------------>
+                        <!------------------------------------------------------------------------------->
 							 <div class="col-md-6">
 						  <div class="form-group row">
-							<label class="col-sm-3 col-form-label">Creación:</label>
+							<label class="col-sm-4 col-form-label">Tipo de Servicio:</label>
 							<div class="col-sm-9">
-								<section class="form-control"><?php echo $hoy ?></section>
-							  </div>
+							  <input type="text" class="form-control" name="ott" id="ott" /> </div>
 						  </div>
 						</div>
-							 <input name="fdc" type="hidden" id="fdc" value="<?php echo $hoy ?>" >
-					  </div>	
-					  <div class="row">
+                        </div>
+                        <!------------------------------------------------------------------------------->
+                        <!---------------------------------N° FACTURA------------------------------------>
+                        <!------------------------------------------------------------------------------->
+                        <div class="row">
 						<div class="col-md-6">
+						<div class="form-group row">
+							<label class="col-sm-4 col-form-label">N° Factura:</label>
 							<?php 
-							$query = "SELECT * FROM TIPO";
-							$result = $conexion->query($query);
-							?>	
-						  <div class="form-group row">
-							<label class="col-sm-3 col-form-label">Tipo Proyecto:</label>
-							<div class="col-sm-9">
-							<select	 class="form-control" name="tipopro" id="tipopro" required>
-							<option value="" selected> Seleccione </option>
-							<?php 
-							while ( $row = $result->fetch_array() )	   
-							{
-							?>
-						<option value=" <?php echo $row['ID_TIPO']; ?> " >
-						<?php echo $row['NOM_TIPO']; ?>
-						</option>
-						<?php
-							}  
-						?>
-						</select>
-							</div>
+								$query = "SELECT * FROM FACTURA";
+								$result = $conexion->query($query);
+								?>	
+								<div class="col-sm-9">
+									<select	 class="form-control" name="SADAS" id="ASDASD" required>
+									<option value="" >Seleccione</option>
+									<?php 
+										while ( $row = $result->fetch_array() ) {?>
+										<option value=" <?php echo $row['ID_FACT'] ?> " ><?php echo $row['NFACT']; ?></option>
+										<?php
+										}?>
+									</select>
+								</div>
 						  </div>
+						  
 						</div>
+                        <!------------------------------------------------------------------------------->
+                        <!---------------------------------RESPONSABLE P--------------------------------->
+                        <!------------------------------------------------------------------------------->
 						<div class="col-md-6">
 						  <div class="form-group row">
-							<label class="col-sm-3 col-form-label">Sitio:</label>
+							<label class="col-sm-4 col-form-label">Responsable P:</label>
 							<div class="col-sm-9">
 							  <input type="text" class="form-control" name="sitio"	id="sitio" /> </div>
 						  </div>
-							<input name="fdc" type="hidden" id="fdc" value="<?php echo $hoy ?>" >
 						</div>
 					  </div>
+                      	<!------------------------------------------------------------------------------->
+                        <!---------------------------------N° COTIZACION--------------------------------->
+                        <!------------------------------------------------------------------------------->
 					  <div class="row">
-					  <div class="col-md-6">
-						<?php 
-							$sql_paises   ="select ID_REGION as 'valor', NOM_REGION as 'descripcion' from region order by descripcion";
-							$sql_ciudades = "select ID_CIUDAD as 'valor', NOM_CIUDAD as 'descripcion' from ciudad order by descripcion";
-							$consulta_paises =mysqli_query($conexion,$sql_paises);
-							$consulta_ciudades= mysqli_query($conexion,$sql_ciudades);
-							?>	
-						<div class="form-group row">
-							<label class="col-sm-3 col-form-label">Región:</label>
-							<div class="col-sm-9" name="regionpro" id="regionpro">
-							  <select name="regionpro" class="form-control" id="regionpro" onChange="obtenerCiudades(this.value);" required>
-								<option value=''> Seleccione </option>
-									<?php
-									
-										while($row= $consulta_paises->fetch_object())
-										{
-											echo "<option value='".$row->valor."'>".$row->descripcion."</option>";
-										}
-									?>
-							  </select>
-							</div>
-						  </div>
-						</div>
 						<div class="col-md-6">
-						
 						  <div class="form-group row">
-							<label class="col-sm-3 col-form-label">Ciudad:</label>
-							<div class="col-sm-9" name="ciudpro1" id="ciudpro1">
-							  <select name="ciudpro" id="ciudpro" class="form-control" required>
-									<option value=''> Seleccione </option>
-										<?php
-											while($row= $consulta_ciudades->fetch_object())
-										   {
-											  echo "<option value='".$row->valor."'>".$row->descripcion."</option>";
-										   }
-										?>
-								</select>
-							</div>
+							<label class="col-sm-4 col-form-label">N° Cotizacion:</label>
+							<div class="col-sm-9">
+							  <input type="text" class="form-control" name="ott" id="ott" /> </div>
 						  </div>
 						</div>
-					  </div>
+                        <!------------------------------------------------------------------------------->
+                        <!---------------------------------ESTADO---------------------------------------->
+                        <!------------------------------------------------------------------------------->
+                        <div class="col-md-6">
+						  <div class="form-group row">
+							<label class="col-sm-4 col-form-label">Estado:</label>
+							<div class="col-sm-9">
+							  <input type="text" class="form-control" name="desc_pro"  id="desc_pro" /> </div>
+						  </div>
+						</div>
+					</div>
+                    	<!------------------------------------------------------------------------------->
+                        <!---------------------------------FECHA ENVIO----------------------------------->
+                        <!------------------------------------------------------------------------------->
 				 <div class="row">
 					<div class="col-md-6">
 						  <div class="form-group row">
-							<label class="col-sm-3 col-form-label">Fecha de Asignación:</label>
+							<label class="col-sm-4 col-form-label">Fecha Envio :</label>
 							<div class="col-sm-9">
 							  <input type="date" class="form-control" name="fda"  id="fda" placeholder="dd/mm/yyyy"  required/> </div>
 						  </div>
 						</div>
-						<div class="col-md-6">
+                        	<!--------------------------------------------------------------------------->
+                        <!---------------------------------NIP------------------------------------------->
+                        <!------------------------------------------------------------------------------->
+                        <div class="col-md-6">
 						  <div class="form-group row">
-							<label class="col-sm-3 col-form-label">Avance %:</label>
+							<label class="col-sm-4 col-form-label">NIP:</label>
 							<div class="col-sm-9">
-							  <input type="number" class="form-control" name="avan" id="avan" min="0" max="100" required /> </div>
+							  <input type="text" class="form-control" name="desc_pro"  id="desc_pro" /> </div>
 						  </div>
 						</div>
 					  </div>
-					  <div class="row">
-					   <div class="col-md-6">
-						  <div class="form-group row">
-							<label class="col-sm-3 col-form-label">Estado:</label>
-							   <div class="col-sm-9">
-							  <select class="form-control" name="estado" id="estado" required>
-								<option value="Activo" >Activo</option>
-								<option value="Pendiente" >Pendiente</option>
-								<option value="Terminado">Terminado</option>
-							  </select>
-							</div>
-						  </div>
-						</div>
-							 <input name="fdc" type="hidden" id="fdc" value="<?php echo $hoy ?>" >
-						<div class="col-md-6">
-							<?php 
-							$query = "SELECT * FROM supentel";
-							$result = $conexion->query($query);
-							?>	
-								  <div class="form-group row">
-									<label class="col-sm-3 col-form-label">Supervisor Externo:</label>
-									<div class="col-sm-9">
-									   <select class="form-control" name="supentel" id="supentel" required>
-									   <option value="" selected> Seleccione </option>
-							<?php 
-									while ($row = $result->fetch_array() )
-									{
-									?>
-										<option value=" <?php echo$row['ID_SUPENTEL'] ?>">
-										<?php echo $row['NOM_SUPENTEL']; ?>
-										</option>
-							<?php } ?>
-							</select>
-							</div>
-						  </div>
-						</div>
-					  </div>
+                      	<!------------------------------------------------------------------------------->
+                        <!---------------------------------VALOR IP-------------------------------------->
+                        <!------------------------------------------------------------------------------->
 					  <div class="row">
 						<div class="col-md-6">
 						  <div class="form-group row">
-						<?php 
-							$query = "SELECT * FROM CENTRO_DE_COSTO WHERE ESTADO <> 'NULO'";
-							$result = $conexion->query($query);
-							?>
-								<label class="col-sm-3 col-form-label">Centro de Costo:</label>
-								<div class="col-sm-9">
-									 <select class="form-control" name="cc" id="cc" required>
-										<option value="" selected> Seleccione </option>
-										<?php 
-										while ( $row = $result->fetch_array() )	   
-										{
-										?>
-												<option value=" <?php echo $row['ID_CC'] ?> " >
-												<?php echo $row['NOM_CC']; ?>
-												</option>
-										<?php
-										}  
-										?>
-							  </select>
-							</div>
+							<label class="col-sm-4 col-form-label">Valor IP:</label>
+							<div class="col-sm-9">
+							  <input type="text" class="form-control" name="ott" id="ott" /> </div>
 						  </div>
 						</div>
-					   <div class="col-md-6">
+                        <!------------------------------------------------------------------------------->
+                        <!---------------------------------VALOR FACTURADO------------------------------->
+                        <!------------------------------------------------------------------------------->
+                        <div class="col-md-6">
 						  <div class="form-group row">
-							  <?php 
-							$query = "SELECT * FROM jefe_entel";
-							$result = $conexion->query($query);
-							?>
-								<label class="col-sm-3 col-form-label">Jefe Externo:</label>
-								 <div class="col-sm-9">
-								  <select class="form-control" name="jde" id="jde" required>
-									<option value="" selected> Seleccione </option>
-							<?php 
-									while ($row = $result->fetch_array() )
-									{
-									?>
-										<option value=" <?php echo$row['ID_JDE'] ?>">
-										<?php echo $row['NOM_JDE']; ?>
-										</option>
-							<?php } ?>
-							</select>	 
-							</div>
+							<label class="col-sm-4 col-form-label">Valor Facturado:</label>
+							<div class="col-sm-9">
+							  <input type="text" class="form-control" name="desc_pro"  id="desc_pro" /> </div>
 						  </div>
 						</div>
-					  </div>
-					  <div class="row">
-						 <div class="col-md-6">
-						  <div class="form-group row">
-							<label class="col-sm-3 col-form-label">Fecha Estimada Inicio:</label>
-								<div class="col-sm-9">
-							  <input type="date" name="fei" id="fei" class="form-control" placeholder="dd/mm/yyyy"  required/> </div>
-						  </div>
-						</div>
+					 </div>
+                     	<!------------------------------------------------------------------------------->
+                        <!---------------------------------OBERSAVACIONES-------------------------------->
+                        <!------------------------------------------------------------------------------->
+                      <div class="row">
 						<div class="col-md-6">
 						  <div class="form-group row">
-							<label class="col-sm-3 col-form-label">Fecha Estimada de Término:</label>
+							<label class="col-sm-4 col-form-label">Observaciones:</label>
 							<div class="col-sm-9">
-							  <input type="date" name="fet" id="fet" class="form-control" required /> </div>
+							  <input type="text" class="form-control" name="ott" id="ott" /> </div>
 						  </div>
 						</div>
-					  </div>
-					  <div class="row">
-					  <div class="col-md-6">
-						  <div class="form-group row">
-							<label class="col-sm-3 col-form-label">Fecha Real de Inicio:</label>
-							<div class="col-sm-9">
-							  <input type="date" name="fri" id="fri" class="form-control" /> </div>
-						  </div>
-						</div>
-						<div class="col-md-6">
-						  <div class="form-group row">
-							<label class="col-sm-3 col-form-label">Fecha Real de Término:</label>
-							<div class="col-sm-9">
-							  <input type="date" name="frt" id="frt" class="form-control" /> </div>
-						  </div>
-						</div>
-					  </div>
-					   <div class="row">
-						<div class="col-md-6">
-						  <div class="form-group row">
-							<label class="col-sm-3 col-form-label">Fecha Entrega Informe:</label>
-							<div class="col-sm-9">
-							  <input type="date" name="fdinf" id="fdinf" class="form-control" /> </div>
-						  </div>
-						</div>
-						<div class="col-md-6">
-						  <div class="form-group row">
-							  <?php 
-							$query = "SELECT cp.ID_PERSONAS, p.NOM_PERSONAS  FROM cargo_de_persona as cp inner join personas as p on cp.ID_PERSONAS= p.ID_PERSONAS where cp.ID_CARGO=2 and p.ACTIVO='si';";
-							$result = $conexion->query($query);
-							?>
-								<label class="col-sm-3 col-form-label">Coordinador de Proyecto:</label>
-								 <div class="col-sm-9">
-								  <select class="form-control" name="ID_PERSONAS" id="ID_PERSONAS" required>
-									<option value="" selected> Seleccione </option>
-							<?php 
-									while ($row = $result->fetch_array() )
-									{
-									?>
-										<option value=" <?php echo$row['ID_PERSONAS'] ?>">
-										<?php echo $row['NOM_PERSONAS']; ?>
-										</option>
-							<?php } ?>
-							</select>	 
-							</div>
-						  </div>
-						</div>
-					  </div>
+                        </div>
+					  
 							 <button type="submit" class="btn btn-success mr-2">Agregar</button>
 							  <input class="btn btn-light" type="button" value="Cancelar" onclick="cancelar()">
 					</form>
